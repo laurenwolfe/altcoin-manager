@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
-
+import psycopg2
 
 def scrape_coin_data(url):
     """ Fetch html served by url, and return as string.
