@@ -47,9 +47,19 @@ def insert_data_into_db(data):
                             user=db_creds['postgres']['user'],
                             password=db_creds['postgres']['password'])
 
+    cur = conn.cursor()
 
+    for row in data:
+        cur.execute("INSERT INTO coin_value_history"
+                    " (symbol, price_date, open_price, high_price, low_price,"
+                    " close_price, volume, market_cap, add_timestamp)"
+                    " VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                    (row[0], row[1], row[2], row[3], row[4], row[5], row[6],
+                     row[7], row[8]))
 
-
+    conn.commit()
+    cur.close()
+    conn.close()
 
 def main():
     url = 'https://coinmarketcap.com/currencies/bitcoin/historical-data/?start=20161019&end=20171019'
