@@ -1,0 +1,5 @@
+[postgres]
+db_name = DATABASE
+user = USER
+password = PASSWORD
+host = HOSTNAME

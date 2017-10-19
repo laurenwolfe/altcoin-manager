@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import configparser
 import psycopg2
 
 def scrape_coin_data(url):
@@ -37,6 +38,17 @@ def parse_coin_data(html):
         results.append([record_date, open_price, high_price, low_price, close_price, trade_volume, market_cap])
 
     return results
+
+
+def insert_data_into_db(data):
+    db_creds = configparser.ConfigParser()
+
+    conn = psycopg2.connect(dbname=db_creds['postgres']['db_name'],
+                            user=db_creds['postgres']['user'],
+                            password=db_creds['postgres']['password'])
+
+
+
 
 
 def main():
