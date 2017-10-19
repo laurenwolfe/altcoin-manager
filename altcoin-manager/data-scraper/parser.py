@@ -42,6 +42,13 @@ def parse_coin_data(html):
 
 def insert_data_into_db(data):
     db_creds = configparser.ConfigParser()
+    db_creds.read('database.ini')
+    
+    print(db_creds['postgres']['db_name'])
+    print(db_creds['postgres']['user'])
+    print(db_creds['postgres']['password'])
+
+    print('postgres' in db_creds)
 
     conn = psycopg2.connect(dbname=db_creds['postgres']['db_name'],
                             user=db_creds['postgres']['user'],
@@ -52,10 +59,9 @@ def insert_data_into_db(data):
     for row in data:
         cur.execute("INSERT INTO coin_value_history"
                     " (symbol, price_date, open_price, high_price, low_price,"
-                    " close_price, volume, market_cap, add_timestamp)"
-                    " VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                    (row[0], row[1], row[2], row[3], row[4], row[5], row[6],
-                     row[7], row[8]))
+                    " close_price, volume, market_cap)"
+                    " VALUES ('BTC', %s, %s, %s, %s, %s, %s, %s)",
+                    (row[0], row[1], row[2], row[3], row[4], row[5], row[6]))
 
     conn.commit()
     cur.close()
@@ -66,8 +72,8 @@ def main():
 
     html = scrape_coin_data(url)
     data = parse_coin_data(html)
-
     print(data)
+    insert_data_into_db(data)
 
 
 if __name__ == "__main__":
