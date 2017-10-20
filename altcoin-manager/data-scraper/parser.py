@@ -43,12 +43,6 @@ def parse_coin_data(html):
 def insert_data_into_db(data):
     db_creds = configparser.ConfigParser()
     db_creds.read('database.ini')
-    
-    print(db_creds['postgres']['db_name'])
-    print(db_creds['postgres']['user'])
-    print(db_creds['postgres']['password'])
-
-    print('postgres' in db_creds)
 
     conn = psycopg2.connect(dbname=db_creds['postgres']['db_name'],
                             user=db_creds['postgres']['user'],
@@ -66,6 +60,7 @@ def insert_data_into_db(data):
     conn.commit()
     cur.close()
     conn.close()
+
 
 def main():
     url = 'https://coinmarketcap.com/currencies/bitcoin/historical-data/?start=20161019&end=20171019'
