@@ -13,3 +13,5 @@ CREATE TABLE tickers (market_name VARCHAR(50), bid_price FLOAT,
 
 CREATE TABLE daily_market_summary (market_name VARCHAR(50), high_val FLOAT, low_val FLOAT, sale_volume FLOAT,
   last_val FLOAT, base_volume FLOAT, previous_day_price FLOAT, open_buys INT, open_sells INT, data_timestamp TIMESTAMP);
+
+CREATE TABLE transactions (symbol VARCHAR(10), purchase_date date, num_units INT, unit_price money);
