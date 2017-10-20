@@ -16,6 +16,7 @@ def enter_transaction():
                 return
             if symbol is None:
                 print("Blank entries are not valid, please try again.")
+                continue
 
         while purchase_date is None:
             purchase_date = input('Enter purchase date:')
@@ -23,6 +24,7 @@ def enter_transaction():
                 return
             if purchase_date is None:
                 print("Blank entries are not valid, please try again.")
+                continue
 
         while shares is None:
             shares = input('Enter number of coins purchased:')
@@ -30,6 +32,7 @@ def enter_transaction():
                 return
             if shares is None:
                 print("Blank entries are not valid, please try again.")
+                continue
 
         while unit_price is None:
             unit_price = input('Enter coin unit price:')
@@ -37,6 +40,7 @@ def enter_transaction():
                 return
             if unit_price is None:
                 print("Blank entries are not valid, please try again.")
+                continue
 
         data = [symbol, purchase_date, shares, unit_price]
         query = "INSERT INTO transactions (symbol, purchase_date, num_units, unit_price) VALUES (%s, %s, %s, %s)"
