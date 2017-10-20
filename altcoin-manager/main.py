@@ -63,3 +63,11 @@ def check_for_exit(line):
         return True
     else:
         return False
+
+
+def main():
+    enter_transaction()
+
+
+if __name__ == "__main__":
+    main()
