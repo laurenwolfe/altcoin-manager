@@ -78,15 +78,20 @@ def get_ticker_data(market_name):
     # Ticker data
     json_ticker_data = 'https://bittrex.com/api/v1.1/public/getticker?market=' + market_name
     ticker_str = fetch_json(json_ticker_data)
-    if ticker_str is not None:
-        ticker = ticker_str['result']
+#    if ticker_str is not None:
 
-        if ticker is not None:
-            bid_price = ticker['Bid']
-            ask_price = ticker['Ask']
-            last_price = ticker['Last']
+    ticker = ticker_str['result']
 
-            return [market_name, bid_price, ask_price, last_price]
+    if ticker is not None:
+        bid_price = ticker['Bid']
+        ask_price = ticker['Ask']
+        last_price = ticker['Last']
+
+        return [market_name, bid_price, ask_price, last_price]
+    else:
+        print("FAILED: \n")
+        print(ticker)
+        print("\n")
 
 
 def get_market_summary(market_name):
