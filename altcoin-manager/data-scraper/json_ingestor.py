@@ -146,7 +146,7 @@ def main():
 
     insert_into_db(currency_rows, "INSERT INTO currencies VALUES (%s, %s, %s, %s)")
     insert_into_db(market_rows, "INSERT INTO markets VALUES (%s, %s, %s, %s, %s, %s)")
-    insert_into_db(ticker_rows, "INSERT INTO tickers VALUES (%s, %s, %s, %s)")
+    #insert_into_db(ticker_rows, "INSERT INTO tickers VALUES (%s, %s, %s, %s)")
     insert_into_db(market_summary_rows, "INSERT INTO daily_market_summary VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
 
