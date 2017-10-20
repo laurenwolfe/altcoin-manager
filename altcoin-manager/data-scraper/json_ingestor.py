@@ -130,9 +130,13 @@ def insert_into_db(lists, table_name):
     cur = conn.cursor()
 
     for row in lists:
+        num_vals = '%s, ' * len(row)
+
+        num_vals = num_vals.rstrip(", ")
+
         print(row)
         data_str = ''.join(row)
-        cur.execute("INSERT INTO " + table_name + " VALUES (" + data_str + ")")
+        cur.execute("INSERT INTO " + table_name + " VALUES (" + num_vals + ")", data_str)
 
     conn.commit()
     cur.close()
