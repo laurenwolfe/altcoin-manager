@@ -149,10 +149,10 @@ def main():
     currency_rows = get_currency_list(json_currency_data)
     market_rows, ticker_rows, market_summary_rows = get_market_list(json_market_data)
 
-    insert_into_db(currency_rows, "INSERT INTO currencies VALUES (%s, %s, %s, %s)")
-    insert_into_db(market_rows, "INSERT INTO markets VALUES (%s, %s, %s, %s, %s, %s)")
+    #insert_into_db(currency_rows, "INSERT INTO currencies VALUES (%s, %s, %s, %s)")
+    #insert_into_db(market_rows, "INSERT INTO markets VALUES (%s, %s, %s, %s, %s, %s)")
     insert_into_db(ticker_rows, "INSERT INTO tickers VALUES (%s, %s, %s, %s)")
-    insert_into_db(market_summary_rows, "INSERT INTO daily_market_summary VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+    #insert_into_db(market_summary_rows, "INSERT INTO daily_market_summary VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
 
 if __name__ == "__main__":
