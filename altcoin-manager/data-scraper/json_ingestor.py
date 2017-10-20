@@ -170,7 +170,7 @@ def main():
     currency_rows = get_currency_list(json_currency_data)
     #market_rows, ticker_rows, market_summary_rows = get_market_list(json_market_data)
 
-    insert_currency_into_db(currency_rows, 'currencies')
+    insert_currency_into_db(currency_rows)
     #insert_into_db(market_rows, 'markets')
     #insert_into_db(ticker_rows, 'tickers')
     #insert_into_db(market_summary_rows, 'daily_market_summary')
