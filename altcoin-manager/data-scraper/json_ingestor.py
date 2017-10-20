@@ -115,6 +115,27 @@ def get_market_summary(market_name):
             return [market_name, high, low, volume, last, base_volume, previous, pending_buy, pending_sell, time]
 
 
+def insert_currency_into_db(list):
+    """ Insert ingested data into postgres db.
+
+    :param lists: rows to be inserted into db table
+    :param table_name: name of table for insertion
+    """
+    db_creds = configparser.ConfigParser()
+    db_creds.read('database.ini')
+
+    conn = psycopg2.connect(dbname=db_creds['postgres']['db_name'],
+                            user=db_creds['postgres']['user'],
+                            password=db_creds['postgres']['password'])
+    cur = conn.cursor()
+
+    for row in list:
+        cur.execute("INSERT INTO currencies VALUES (%s, %s, %s, %s)", row[0], row[1], row[2], row[3])
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def insert_into_db(lists, table_name):
     """ Insert ingested data into postgres db.
 
@@ -141,7 +162,6 @@ def insert_into_db(lists, table_name):
     conn.commit()
     cur.close()
     conn.close()
-
 
 def main():
     json_currency_data = 'https://bittrex.com/api/v1.1/public/getcurrencies'
