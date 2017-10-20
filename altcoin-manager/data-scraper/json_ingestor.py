@@ -115,7 +115,7 @@ def get_market_summary(market_name):
             return [market_name, high, low, volume, last, base_volume, previous, pending_buy, pending_sell, time]
 
 
-def insert_currency_into_db(list):
+def insert_into_db(list, query):
     """ Insert ingested data into postgres db.
 
     :param lists: rows to be inserted into db table
@@ -130,51 +130,24 @@ def insert_currency_into_db(list):
     cur = conn.cursor()
 
     for row in list:
-#        cur.execute("INSERT INTO currencies VALUES (%s, %s, %s, %s)", (row[0], row[1], row[2], row[3]))
-        cur.execute("INSERT INTO currencies VALUES (%s, %s, %s, %s)", row)
+        cur.execute(query, row)
 
     conn.commit()
     cur.close()
     conn.close()
 
-def insert_into_db(lists, table_name):
-    """ Insert ingested data into postgres db.
-
-    :param lists: rows to be inserted into db table
-    :param table_name: name of table for insertion
-    """
-    db_creds = configparser.ConfigParser()
-    db_creds.read('database.ini')
-
-    conn = psycopg2.connect(dbname=db_creds['postgres']['db_name'],
-                            user=db_creds['postgres']['user'],
-                            password=db_creds['postgres']['password'])
-    cur = conn.cursor()
-
-    for row in lists:
-        num_vals = '%s, ' * len(row)
-
-        num_vals = num_vals.rstrip(", ")
-
-        print(row)
-        data_str = ''.join(row)
-        cur.execute("INSERT INTO " + table_name + " VALUES (" + num_vals + ")", data_str)
-
-    conn.commit()
-    cur.close()
-    conn.close()
 
 def main():
     json_currency_data = 'https://bittrex.com/api/v1.1/public/getcurrencies'
     json_market_data = 'https://bittrex.com/api/v1.1/public/getmarkets'
 
     currency_rows = get_currency_list(json_currency_data)
-    #market_rows, ticker_rows, market_summary_rows = get_market_list(json_market_data)
+    market_rows, ticker_rows, market_summary_rows = get_market_list(json_market_data)
 
-    insert_currency_into_db(currency_rows)
-    #insert_into_db(market_rows, 'markets')
-    #insert_into_db(ticker_rows, 'tickers')
-    #insert_into_db(market_summary_rows, 'daily_market_summary')
+    insert_into_db(currency_rows, "INSERT INTO currencies VALUES (%s, %s, %s, %s)")
+    insert_into_db(market_rows, "INSERT INTO markets VALUES (%s, %s, %s, %s, %s, %s)")
+    insert_into_db(ticker_rows, "INSERT INTO tickers VALUES (%s, %s, %s, %s)")
+    insert_into_db(market_summary_rows, "INSERT INTO daily_market_summary VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
 
 if __name__ == "__main__":
