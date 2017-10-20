@@ -4,6 +4,10 @@ import configparser
 
 def enter_transaction():
     print("Enter X to finish inputting data.")
+    symbol = ''
+    purchase_date = ''
+    shares = ''
+    unit_price = ''
 
     while True:
         while symbol is None:
