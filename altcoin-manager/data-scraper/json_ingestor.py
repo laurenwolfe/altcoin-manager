@@ -130,7 +130,7 @@ def insert_currency_into_db(list):
     cur = conn.cursor()
 
     for row in list:
-        cur.execute("INSERT INTO currencies VALUES (%s, %s, %s, %s)", row[0], row[1], row[2], row[3])
+        cur.execute("INSERT INTO currencies VALUES (%s, %s, %s, %s)", (row[0], row[1], row[2], row[3]))
 
     conn.commit()
     cur.close()
