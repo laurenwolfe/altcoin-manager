@@ -41,7 +41,7 @@ def enter_transaction():
 
 def insert_data_into_db(data, query):
     db_creds = configparser.ConfigParser()
-    db_creds.read('database.ini')
+    db_creds.read('data-scraper/database.ini')
 
     conn = psycopg2.connect(dbname=db_creds['postgres']['db_name'],
                             user=db_creds['postgres']['user'],
