@@ -130,6 +130,7 @@ def insert_into_db(lists, table_name):
     cur = conn.cursor()
 
     for row in lists:
+        print(row)
         data_str = ''.join(row)
         cur.execute("INSERT INTO " + table_name + " VALUES (" + data_str + ")")
 
@@ -143,12 +144,12 @@ def main():
     json_market_data = 'https://bittrex.com/api/v1.1/public/getmarkets'
 
     currency_rows = get_currency_list(json_currency_data)
-    market_rows, ticker_rows, market_summary_rows = get_market_list(json_market_data)
+    #market_rows, ticker_rows, market_summary_rows = get_market_list(json_market_data)
 
     insert_into_db(currency_rows, 'currencies')
-    insert_into_db(market_rows, 'markets')
-    insert_into_db(ticker_rows, 'tickers')
-    insert_into_db(market_summary_rows, 'daily_market_summary')
+    #insert_into_db(market_rows, 'markets')
+    #insert_into_db(ticker_rows, 'tickers')
+    #insert_into_db(market_summary_rows, 'daily_market_summary')
 
 
 if __name__ == "__main__":
