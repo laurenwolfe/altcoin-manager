@@ -78,7 +78,6 @@ def get_ticker_data(market_name):
     # Ticker data
     json_ticker_data = 'https://bittrex.com/api/v1.1/public/getticker?market=' + market_name
     ticker_str = fetch_json(json_ticker_data)
-#    if ticker_str is not None:
 
     ticker = ticker_str['result']
 
@@ -88,10 +87,6 @@ def get_ticker_data(market_name):
         last_price = ticker['Last']
 
         return [market_name, bid_price, ask_price, last_price]
-    else:
-        print("FAILED: \n")
-        print(ticker)
-        print("\n")
 
 
 def get_market_summary(market_name):
@@ -123,8 +118,8 @@ def get_market_summary(market_name):
 def insert_into_db(list, query):
     """ Insert ingested data into postgres db.
 
-    :param lists: rows to be inserted into db table
-    :param table_name: name of table for insertion
+    :param list: rows to be inserted into db table
+    :param query: row insertion query for database
     """
     db_creds = configparser.ConfigParser()
     db_creds.read('database.ini')
@@ -135,6 +130,7 @@ def insert_into_db(list, query):
     cur = conn.cursor()
 
     for row in list:
+        print(row)
         cur.execute(query, row)
 
     conn.commit()
