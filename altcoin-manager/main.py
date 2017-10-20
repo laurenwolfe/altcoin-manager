@@ -39,7 +39,7 @@ def enter_transaction():
                 print("Blank entries are not valid, please try again.")
 
         data = [symbol, purchase_date, shares, unit_price]
-        query = "INSERT INTO user_txns (symbol, purchase_date, shares, unit_price) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO transactions (symbol, purchase_date, num_units, unit_price) VALUES (%s, %s, %s, %s)"
         insert_data_into_db(data, query)
 
 
